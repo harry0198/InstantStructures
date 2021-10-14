@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * 3 Dimensional plane model for defining bounds and shape
  */
-public class Polygon3D {
+public abstract class Polygon3D {
 
     private final ImmutableList<Point3D> points;
     private Point3D min, max;

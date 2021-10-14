@@ -1,7 +1,7 @@
 package com.harrydrummond.is.core.protection;
 
 /**
- * POJO for defining a point in a 3d space
+ * POJO for defining a point in a coordinate based 3d space
  */
 public final class Point3D {
 
