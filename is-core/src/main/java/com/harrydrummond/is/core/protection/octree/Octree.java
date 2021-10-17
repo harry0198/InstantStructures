@@ -143,6 +143,7 @@ public final class Octree {
 
     private static final List<Octree> tmpOctreeList = new ArrayList<>();
 
+    // Depth first search for region
     private static void dfs(Octree tree, Region region) {
         if (tree == null)
             return;

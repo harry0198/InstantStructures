@@ -3,6 +3,8 @@ package com.harrydrummond.is.core.schematic;
 import com.harrydrummond.is.core.annotations.AnnotationUtils;
 import com.harrydrummond.is.core.annotations.ClipboardControllerRequestFormData;
 import com.harrydrummond.is.core.annotations.HandlerRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,10 +21,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ClipboardControllerHandler {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClipboardControllerHandler.class);
+
     private ClipboardController clipboardController;
 
     public ClipboardControllerHandler() {
         clipboardController = requestPrimaryClipboardController();
+        LOGGER.info("Using clipboard controller: " + (clipboardController == null ? "None" : clipboardController.getClass().getName()));
     }
 
     /**
@@ -48,7 +53,9 @@ public class ClipboardControllerHandler {
 
         for(ClipboardControllerRequestFormData data : requestForms) {
             ClipboardController clip = data.callMethod();
-            if (clip == null) continue;
+            if (clip == null) {
+                continue;
+            }
             return clip;
         }
         return null;

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>is-spigot</artifactId>
+    <artifactId>is-worldedit-bukkit</artifactId>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
@@ -18,19 +18,22 @@
 
     <repositories>
         <repository>
+            <id>WorldEdit</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
     <dependencies>
-        <!-- Core Module -->
         <dependency>
             <groupId>com.harrydrummond.is</groupId>
             <artifactId>is-core</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+        <!--This adds the Spigot API artifact to the build -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -38,37 +41,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.mattstudios.utils</groupId>
-            <artifactId>matt-framework</artifactId>
-            <version>1.4.6</version> <!-- replace version here -->
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.2.6</version>
+            <scope>provided</scope>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>me.mattstudios.mf</pattern>
-                            <shadedPattern>com.harrydrummond.is.mf</shadedPattern> <!-- Replace package here here -->
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

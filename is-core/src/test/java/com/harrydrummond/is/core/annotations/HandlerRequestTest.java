@@ -1,6 +1,8 @@
 package com.harrydrummond.is.core.annotations;
 
+import com.harrydrummond.is.core.protection.Point3D;
 import com.harrydrummond.is.core.schematic.ClipboardController;
+import com.harrydrummond.is.core.schematic.Session;
 import org.junit.jupiter.api.Test;
 
 public class HandlerRequestTest {
@@ -20,13 +22,13 @@ public class HandlerRequestTest {
         }
 
         @Override
-        public void load() {
-
+        public Session paste(Session session, Point3D point, String world) {
+            return null;
         }
 
         @Override
-        public void paste() {
-
+        public Session undo(Session session, String worldName) {
+            return null;
         }
     }
 }

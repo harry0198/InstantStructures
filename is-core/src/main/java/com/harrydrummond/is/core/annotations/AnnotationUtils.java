@@ -2,6 +2,8 @@ package com.harrydrummond.is.core.annotations;
 
 import com.google.common.reflect.ClassPath;
 import com.harrydrummond.is.core.schematic.ClipboardController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -12,6 +14,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AnnotationUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnnotationUtils.class);
 
     /**
      * Returns all classes in package and sub-packages. If IOException occurs,
@@ -28,7 +32,7 @@ public class AnnotationUtils {
                     .map(clazz -> clazz.load())
                     .collect(Collectors.toSet());
         } catch (IOException io) {
-            //todo logger
+            LOGGER.error("Failed to access class loader!", io);
             return Set.of();
         }
         return set;
@@ -50,7 +54,7 @@ public class AnnotationUtils {
         for (Class<?> clazz : packageClasses) {
             HandlerRequest requestAnnotation = getHandlerRequest(clazz);
             if (requestAnnotation == null) {
-                continue;//todo you were working form here bro
+                continue;
             }
 
             // If code reaches this point, it implements ClipboardController interface and thus has the following method
@@ -59,8 +63,11 @@ public class AnnotationUtils {
             try {
                 method = clazz.getDeclaredMethod("request");
                 instance = clazz.getDeclaredConstructor().newInstance();
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                //TODO LOG
+            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                LOGGER.warn("Failed to invoke class {}", clazz, e);
+                continue;
+            } catch (NoSuchMethodException e) {
+                LOGGER.warn("Class {} requested clipboard controller but did not contain request method or declared constructor!",clazz.getName());
                 continue;
             }
 
@@ -80,10 +87,8 @@ public class AnnotationUtils {
     public static HandlerRequest getHandlerRequest(Class<?> clazz) {
         HandlerRequest requestAnnotation = clazz.getAnnotation(HandlerRequest.class);
         if (requestAnnotation == null) return null;
-        if (!ClipboardController.class.isAssignableFrom(clazz)) {
-            // todo LOG
-            return null;
-        }
+        if (!ClipboardController.class.isAssignableFrom(clazz)) return null;
+
         return requestAnnotation;
     }
 
