@@ -1,0 +1,5 @@
+name: InstantStructures
+main: com.harrydrummond.is.spigot.InstantStructuresPlugin
+version: "${internalVersion}"
+load: STARTUP
+api-version: 1.17

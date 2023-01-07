@@ -3,12 +3,18 @@ package com.harrydrummond.is.core.util;
 import com.harrydrummond.is.core.protection.Point3D;
 import com.harrydrummond.is.core.protection.octree.Octane;
 
+import java.util.Arrays;
+
 public final class MathUtil {
 
-    // Method for getting the maximum value
+    /**
+     * Gets max value in integer array in O(n) time
+     * @param inputArray Array to get max value from
+     * @return Maximum value in array of ints
+     */
     public static int getMax(int[] inputArray){
         int maxValue = inputArray[0];
-        for(int i=1;i < inputArray.length;i++){
+        for(int i=1;i<inputArray.length;i++){
             if(inputArray[i] > maxValue){
                 maxValue = inputArray[i];
             }
@@ -16,7 +22,11 @@ public final class MathUtil {
         return maxValue;
     }
 
-    // Method for getting the minimum value
+    /**
+     * Gets min value in integer array in O(n) time
+     * @param inputArray Array to get min value from
+     * @return Minimum value in array of ints
+     */
     public static int getMin(int[] inputArray){
         int minValue = inputArray[0];
         for(int i=1;i<inputArray.length;i++){
@@ -25,6 +35,25 @@ public final class MathUtil {
             }
         }
         return minValue;
+    }
+
+    /**
+     * Gets minimum and maximum values in O(n) time
+     * @param inputArray Array to get min and max values from
+     * @return Array[min][max] of values
+     */
+    public static int[] getMinAndMax(int[] inputArray) {
+        int minValue = Integer.MAX_VALUE;
+        int maxValue = Integer.MIN_VALUE;
+        for (int j : inputArray) {
+            if (j < minValue) {
+                minValue = j;
+            }
+            if (j > maxValue) {
+                maxValue = j;
+            }
+        }
+        return new int[]{minValue,maxValue};
     }
 
     /**

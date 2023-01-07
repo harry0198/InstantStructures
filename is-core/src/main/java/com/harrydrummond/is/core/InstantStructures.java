@@ -1,13 +1,8 @@
 package com.harrydrummond.is.core;
 
-import ch.jalu.configme.SettingsManager;
-import ch.jalu.configme.SettingsManagerBuilder;
-import com.harrydrummond.is.core.configuration.SchematicConfiguration;
 import com.harrydrummond.is.core.data.PlatformController;
 import com.harrydrummond.is.core.protection.octree.OctreeHandler;
 import com.harrydrummond.is.core.schematic.ClipboardControllerHandler;
-
-import java.io.File;
 
 /**
  * The entry point for a working implementation of InstantStructures.
@@ -20,7 +15,7 @@ import java.io.File;
  */
 public final class InstantStructures {
 
-    private static final InstantStructures instance = new InstantStructures();
+    private static final InstantStructures INSTANCE = new InstantStructures();
 
     private final ClipboardControllerHandler clipboardControllerHandler = new ClipboardControllerHandler();
     private final OctreeHandler octreeHandler = new OctreeHandler();
@@ -29,7 +24,7 @@ public final class InstantStructures {
     private InstantStructures() { }
 
     public static InstantStructures getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     public PlatformController getPlatformController() {

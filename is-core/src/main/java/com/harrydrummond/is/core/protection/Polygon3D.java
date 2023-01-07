@@ -60,34 +60,39 @@ public abstract class Polygon3D {
     }
 
     /**
-     * Gets the minimum point bound in bounding box. Minimum point is calculated upon method call
+     * Gets the minimum point bound in bounding box. Both, Minimum and Maximum point is calculated when requested
      * and stored for later use (lazy initialization)
      * @return Minimum point of polygon bounding box
      */
     public Point3D getMin() {
         if (min != null) return min;
 
-        min = new Point3D(
-                MathUtil.getMin(getPoints().stream().mapToInt(p -> p.x).toArray()),
-                MathUtil.getMin(getPoints().stream().mapToInt(p -> p.y).toArray()),
-                MathUtil.getMin(getPoints().stream().mapToInt(p -> p.z).toArray())
-        );
+        // common use case is both called at same time so here, we initialize both min and max to reduce load
+        initMinAndMax();
         return min;
     }
 
     /**
-     * Gets the maximum point bound in bounding box. Minimum point is calculated upon method call
+     * Gets the maximum point bound in bounding box. Both, Minimum and Maximum point is calculated when requested
      * and stored for later use (lazy initialization)
      * @return Maximum point of polygon bounding box
      */
     public Point3D getMax() {
         if (max != null) return max;
-        max = new Point3D(
-                MathUtil.getMax(getPoints().stream().mapToInt(p -> p.x).toArray()),
-                MathUtil.getMax(getPoints().stream().mapToInt(p -> p.y).toArray()),
-                MathUtil.getMax(getPoints().stream().mapToInt(p -> p.z).toArray())
-        );
+        // common use case is both called at same time so here, we initialize both min and max to reduce load
+
+        initMinAndMax();
         return max;
+    }
+
+    // common use case is both called at same time so here, we initialize both min and max to reduce load
+    private void initMinAndMax() {
+        int[] x = MathUtil.getMinAndMax(getPoints().stream().mapToInt(p -> p.x).toArray());
+        int[] y = MathUtil.getMinAndMax(getPoints().stream().mapToInt(p -> p.y).toArray());
+        int[] z = MathUtil.getMinAndMax(getPoints().stream().mapToInt(p -> p.z).toArray());
+
+        min = new Point3D(x[0],y[0],z[0]);
+        max = new Point3D(x[1],y[1],z[1]);
     }
 
     /**

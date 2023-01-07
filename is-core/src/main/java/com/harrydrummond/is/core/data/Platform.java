@@ -1,9 +1,10 @@
 package com.harrydrummond.is.core.data;
 
-import com.harrydrummond.is.core.configuration.Configuration;
+
+import java.io.File;
 
 public interface Platform {
 
-    Configuration getConfiguration();
+    File getDataFolder();
 
 }

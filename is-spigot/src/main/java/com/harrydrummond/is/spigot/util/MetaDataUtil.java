@@ -1,6 +1,5 @@
 package com.harrydrummond.is.spigot.util;
 
-import com.harrydrummond.is.core.InstantStructures;
 import com.harrydrummond.is.core.schematic.Session;
 import com.harrydrummond.is.spigot.InstantStructuresPlugin;
 import org.apache.commons.lang.SerializationException;
